@@ -9,3 +9,9 @@ body {
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow-y: hidden;
 }
+.float-left {
+  float: left !important;
+}
+.float-right {
+  float: right !important;
+}
