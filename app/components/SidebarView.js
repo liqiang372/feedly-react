@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Sidebar, Menu, Button, Icon } from 'semantic-ui-react'
-
+import fetch from '../utils/fetch'
+import { CATEGORIES_URL } from '../constants'
 const styles = {
   sideBar: {
     'width': '260px',
@@ -27,8 +28,25 @@ const styles = {
 class SidebarView extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      categories: []
+    }
+  }
+  componentDidMount() {
+    // get categories
+    fetch(CATEGORIES_URL, 'GET')
+    .then(data => this.setState({categories: data}))
   }
   render() {
+    const { selectCateogry } = this.props
+    const categories = this.state.categories.map((c,index) => (
+      <Menu.Item key={index}>
+        <p style={styles.list}>
+          <Icon name='angle right' />
+          <span onClick={() => selectCateogry(c.label) }>{c.label}</span>
+        </p>
+      </Menu.Item>
+    ))
     return (
       <Sidebar as={Menu} animation='push' visible={this.props.visible}
               icon='labeled' vertical
@@ -48,11 +66,12 @@ class SidebarView extends Component {
           </Menu.Header>
           <Menu.Menu>
             <Menu.Item>
-              <p style={styles.list}><Icon name='content' /> All</p>
+              <p style={styles.list}><Icon name='content' />
+                <span onClick={() => selectCateogry('All')}>All</span>
+              </p>
             </Menu.Item>
-            <Menu.Item>
-              <p style={styles.list}><Icon name='angle right' /> Blog </p>
-            </Menu.Item>
+
+            { categories }
           </Menu.Menu>
         </Menu.Item>
       </Sidebar>

@@ -9,5 +9,6 @@ const mapStateToProps = (state) => ({
   visible: state.toggleSidebar
 })
 
+const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
 
-export default connect(mapStateToProps)(SidebarView)
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarView)
