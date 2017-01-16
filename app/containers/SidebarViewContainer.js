@@ -6,7 +6,8 @@ import * as actions from '../actions/sidebar';
 
 
 const mapStateToProps = (state) => ({
-  visible: state.toggleSidebar
+  visible: state.toggleSidebar,
+  categories: state.categories.list
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)

@@ -28,25 +28,26 @@ const styles = {
 class SidebarView extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      categories: []
-    }
   }
   componentDidMount() {
     // get categories
-    fetch(CATEGORIES_URL, 'GET')
-    .then(data => this.setState({categories: data}))
+    const { fetchProfile, fetchCategories } = this.props
+    fetchProfile()
+    fetchCategories()
   }
   render() {
-    const { selectCateogry } = this.props
-    const categories = this.state.categories.map((c,index) => (
-      <Menu.Item key={index}>
-        <p style={styles.list}>
-          <Icon name='angle right' />
-          <span onClick={() => selectCateogry(c.label) }>{c.label}</span>
-        </p>
-      </Menu.Item>
-    ))
+    const { categories, selectCateogry } = this.props
+    let categoriesList = <p>Nothing is here</p>
+    if (typeof categories !== 'undefined') {
+      categoriesList = categories.map((c,index) => (
+        <Menu.Item key={index}>
+          <p style={styles.list}>
+            <Icon name='angle right' />
+            <span onClick={() => selectCateogry(c.label) }>{c.label}</span>
+          </p>
+        </Menu.Item>
+      ))
+    }
     return (
       <Sidebar as={Menu} animation='push' visible={this.props.visible}
               icon='labeled' vertical
@@ -70,8 +71,7 @@ class SidebarView extends Component {
                 <span onClick={() => selectCateogry('All')}>All</span>
               </p>
             </Menu.Item>
-
-            { categories }
+            { categoriesList }
           </Menu.Menu>
         </Menu.Item>
       </Sidebar>

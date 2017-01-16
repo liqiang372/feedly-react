@@ -2,13 +2,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
 import counter from './counter'
-import { toggleSidebar, selectedCategory } from './sidebar'
+import * as sidebar from './sidebar'
 import { feedsByFilter } from './feeds'
 
 const rootReducer = combineReducers({
   counter,
-  toggleSidebar,
-  selectedCategory,
+  ...sidebar,
   feedsByFilter,
   routing
 });

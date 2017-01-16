@@ -5,12 +5,13 @@ import * as actions from '../actions/sidebar';
 
 const mapStateToProps = (state) => {
   const { selectedCategory, feedsByFilter } = state
-  const { isFetching, lastUpdated} = feedsByFilter[selectedCategory] || {
+  const { isFetching, lastUpdated, items: feeds} = feedsByFilter[selectedCategory] || {
     isFetching: true
   }
   return {
     selectedCategory,
     isFetching,
+    feeds,
     lastUpdated
   }
 }

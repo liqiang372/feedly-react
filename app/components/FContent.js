@@ -18,9 +18,18 @@ class FContent extends Component {
     }
   }
   render() {
+    const { feeds } = this.props
+    let feedsList = <p> nothing is here</p>
+    if (feeds && feeds.items && feeds.items.length > 0) {
+      feedsList = feeds.items.map((f,index) => (
+        <ul>
+          <li key={index}> {f.title}</li>
+        </ul>
+      ))
+    }
     return (
       <Container>
-        <Header>{ 'hello' }</Header>
+        <Header>{ feedsList }</Header>
       </Container>
     )
   }
