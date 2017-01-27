@@ -1,4 +1,4 @@
-import { TOGGLE_SIDEBAR, SELECT_CATEGORY, REQUEST_CATEGORIES, RECEIVE_CATEGORIES, RECEIVE_PROFILE } from '../actions/sidebar'
+import { TOGGLE_SIDEBAR, CATEGORY_SELECT, CATEGORIES_REQUEST, CATEGORIES_SUCCESS, PROFILE_SUCCESS } from '../actions/sidebar'
 
 export function toggleSidebar(state = true, action) {
   switch (action.type) {
@@ -11,7 +11,7 @@ export function toggleSidebar(state = true, action) {
 
 export const selectedCategory = (state = 'All', action) => {
   switch (action.type) {
-    case SELECT_CATEGORY:
+    case CATEGORY_SELECT:
       return action.category
     default:
       return state
@@ -24,12 +24,12 @@ const category = (state = {
   list: []
 }, action) => {
   switch(action.type) {
-    case REQUEST_CATEGORIES:
+    case CATEGORIES_REQUEST:
       return {
         ...state,
         isFetching: true
       }
-    case RECEIVE_CATEGORIES:
+    case CATEGORIES_SUCCESS:
       return {
         ...state,
         isFetching: false,
@@ -39,8 +39,8 @@ const category = (state = {
 }
 export const categories = (state = {}, action) => {
   switch(action.type) {
-    case REQUEST_CATEGORIES:
-    case RECEIVE_CATEGORIES:
+    case CATEGORIES_REQUEST:
+    case CATEGORIES_SUCCESS:
       return {
         ...state,
         ...category(state['list'], action)
@@ -52,7 +52,7 @@ export const categories = (state = {}, action) => {
 
 export const profile = (state = {}, action) => {
   switch(action.type) {
-    case RECEIVE_PROFILE:
+    case PROFILE_SUCCESS:
       return {
         ...state,
         ...action.profile

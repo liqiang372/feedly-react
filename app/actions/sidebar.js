@@ -12,23 +12,23 @@ export function toggleSidebar() {
 /**
  * FEEDS
  */
-export const SELECT_CATEGORY = 'SELECT_CATEGORY'
-export const REQUEST_FEEDS = 'REQEUST_FEEDS'
-export const RECEIVE_FEEDS = 'RECEIVE_FEEDS'
+export const CATEGORY_SELECT = 'CATEGORY_SELECT'
+export const FEEDS_REQUEST = 'FEEDS_REQUEST'
+export const FEEDS_SUCCESS = 'FEEDS_'
 
 export const selectCateogry = (c) => ({
-  type: SELECT_CATEGORY,
+  type: CATEGORY_SELECT,
   category: c
 })
 
 
 export const requestFeeds = filter => ({
-  type: REQUEST_FEEDS,
+  type: FEEDS_REQUEST,
   filter
 })
 
 export const receiveFeeds = (filter, data) => ({
-  type: RECEIVE_FEEDS,
+  type: FEEDS_SUCCESS,
   filter,
   feeds: data,
   receivedAt: Date.now()
@@ -47,35 +47,40 @@ export const fetchFeeds = filter => (dispatch, getState) => {
 /**
  * PROFILE
  */
-export const REQUEST_PROFILE = 'REQUEST_PROFILE'
-export const RECEIVE_PROFILE = 'RECEIVE_PROFILE'
+export const PROFILE_REQUEST = 'PROFILE_REQUEST'
+export const PROFILE_SUCCESS = 'PROFILE_SUCCESS'
+export const PROFILE_FAILURE = 'PROFILE_FAILURE'
 
 export const requestProfile = () => ({
-  type: REQUEST_PROFILE
+  type: PROFILE_REQUEST
 })
 
 export const receiveProfile = (profile) => ({
-  type: RECEIVE_PROFILE,
+  type: PROFILE_SUCCESS,
   profile: profile
 })
+
 export const fetchProfile = () => dispatch => {
   dispatch(requestProfile())
   return fetch(URL.PROFILE_URL, 'GET')
-    .then(json => {console.log(json); dispatch(receiveProfile(json))})
+    .then(json => { dispatch(receiveProfile(json)) })
+    .catch(() => dispatch({
+      type: PROFILE_FAILURE
+    }))
 }
 
 /**
  * CATEGORY LIST
  */
-export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES'
-export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'
+export const CATEGORIES_REQUEST = 'CATEGORIES_REQUEST'
+export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS'
 
 export const requestCategories = () => ({
-  type: REQUEST_CATEGORIES
+  type: CATEGORIES_REQUEST
 })
 
 export const receiveCategories = (data) => ({
-  type: RECEIVE_CATEGORIES,
+  type: CATEGORIES_SUCCESS,
   categories: data
 })
 

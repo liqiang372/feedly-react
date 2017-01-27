@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { Sidebar, Segment, Header} from 'semantic-ui-react'
-import SidebarViewContainer from '../containers/SidebarViewContainer'
-import FHeaderContainer from '../containers/FHeaderContainer'
-import FContentContainer from '../containers/FContentContainer'
+import SidebarView from './SidebarView'
+import FHeader from './FHeader'
+import FContent from './FContent'
 import './Home.css'
 
 export default class Home extends Component {
@@ -15,10 +15,10 @@ export default class Home extends Component {
           'border': 'none',
           'borderRadius': 0
         }}>
-          <SidebarViewContainer />
+          <SidebarView />
           <Sidebar.Pusher>
-              <FHeaderContainer />
-              <FContentContainer />
+              <FHeader />
+              <FContent tyle={{"height": "100%"}} />
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </div>

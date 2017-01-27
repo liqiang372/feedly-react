@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import { Sidebar, Menu, Button, Icon } from 'semantic-ui-react'
 import fetch from '../utils/fetch'
 import { CATEGORIES_URL } from '../constants'
+
+/* import for containers */
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/sidebar';
+
+
 const styles = {
   sideBar: {
     'width': '260px',
@@ -79,4 +86,11 @@ class SidebarView extends Component {
   }
 }
 
-export default SidebarView
+const mapStateToProps = (state) => ({
+  visible: state.toggleSidebar,
+  categories: state.categories.list
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarView)

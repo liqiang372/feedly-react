@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import { Menu, Icon, Button} from 'semantic-ui-react'
 
+
+/* import for containers */
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/sidebar';
+
+
 const styles = {
   menu: {
     'border': 'none',
@@ -21,4 +28,6 @@ class FHeader extends Component {
   }
 }
 
-export default FHeader
+const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
+
+export default connect(null, mapDispatchToProps)(FHeader)

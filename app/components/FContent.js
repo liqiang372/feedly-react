@@ -5,10 +5,15 @@ import ACCESS_TOKEN from '../secret'
 import * as URL from '../constants'
 import { fetchFeeds } from '../actions/sidebar'
 
+/* import for containers */
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../actions/sidebar';
+
+
 class FContent extends Component {
   constructor(props) {
     super(props)
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,11 +33,24 @@ class FContent extends Component {
       ))
     }
     return (
-      <Container>
+      <Container style={{"height": "100%", "oveflow":"auto"}}>
         <Header>{ feedsList }</Header>
       </Container>
     )
   }
 }
 
-export default FContent
+const mapStateToProps = (state) => {
+  const { selectedCategory, feedsByFilter } = state
+  const { isFetching, lastUpdated, items: feeds} = feedsByFilter[selectedCategory] || {
+    isFetching: true
+  }
+  return {
+    selectedCategory,
+    isFetching,
+    feeds,
+    lastUpdated
+  }
+}
+
+export default connect(mapStateToProps)(FContent)
